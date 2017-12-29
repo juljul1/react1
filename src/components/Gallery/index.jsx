@@ -1,15 +1,19 @@
 import React from 'react';
-import GalleryElem from './GalleryElem';
+import GalleryElem from '../GalleryElem';
 import './styles.css';
-import gallery from './gallery.js';
+import v4 from 'uuid/v4';
 
 export default class Gallery extends React.Component {
+
   render() {
-      const galleryElem = gallery.map(movie  => <GalleryElem key={movie.id} {...movie} />);
+      const {card,deletMovies}= this.props;
+
     return (
-        <div className="Gallery">
-            {galleryElem}
-        </div>
+            <div className="Gallery">
+                {card.map( elem => <GalleryElem key={v4()} {...elem}
+                    onDelete={()=>{ deletMovies(elem.id); }}/>)}
+            </div>
+
     );
   }
 }
