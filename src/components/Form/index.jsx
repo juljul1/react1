@@ -28,7 +28,6 @@ export default class Form extends React.Component {
     _userGenresChange = elem => {
     this.setState({ genre: elem });
   };
-
     _formSubmit = evt => {
         evt.preventDefault();
     const userData = {
@@ -36,8 +35,8 @@ export default class Form extends React.Component {
         descr: this.state.descr
         };
     if (this.state.title !== "" && this.state.descr !== "") {
-      //this.props.onFormSubmit(this.state);
       this.setState({ id: v4() }, () => this.props.onFormSubmit(this.state));
+      this.form.reset();
     } else {
       alert("Please enter all Movie information!");
   }}
@@ -46,12 +45,12 @@ export default class Form extends React.Component {
 
       const { title, descr, raiting, poster, genre } = this.state;
     return (
-        <section className="MovieForm"  onSubmit={this._formSubmit}>
-            <form action="#" className=''>
+        <section className="MovieForm">
+            <form action="#"  onSubmit={this._formSubmit} ref ={node => (this.form = node)}>
                 <fieldset className='MovieForm__field'>
                 <legend className="MovieForm__lable">Add film</legend>
             <label className="MovieForm__lable">Title <br></br>
-                <textarea type="text" className="MovieForm__input" cols="30" rows="1" value={title} onChange={this._addMovieTitleChange}>
+                <textarea type="text" className="MovieForm__input" cols="20" rows="1" value={title} onChange={this._addMovieTitleChange}>
                 </textarea>
             </label>
             <label className="MovieForm__lable">Description<br></br>
